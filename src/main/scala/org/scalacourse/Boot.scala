@@ -14,11 +14,11 @@ object Boot extends App with ServiceBoot with ApplicationRoutesConsolidated{
 
   import com.synergygb.zordon.core.util._
 
-  implicit val context = Context
+  implicit def context = Context
 
   protected def apiResourceClass = getClass
 
-  override def dataContext: DataTransformContext = ???
+  override def dataContext: DataTransformContext = context
 
   override def handleDeleteProjectProjectIdTaskTaskIdUserName(projectId: String, taskId: String, userName: String)(): Route = super.handleDeleteProjectProjectIdTaskTaskIdUserName(projectId, taskId, userName)()
 
