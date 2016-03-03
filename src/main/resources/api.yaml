@@ -1,18 +1,472 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
+  title: Project API
+  description: Move your app forward with the Uber API
   version: "1.0.0"
+# the domain of the service
+host: wheaterservice.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+consumes:
+  - application/json
 paths:
-  /hello:
-    get:
+  /project:
+    post:
+      summary: Create Project
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: project
+          in: body
+          description: Project to be created.
+          required: true
+          schema:
+            $ref: "#/definitions/Project"
+      tags:
+        - Project
       responses:
         200:
+          description: Project created successfully
           schema:
-            $ref: "#/definitions/HelloResponse"
+            $ref: '#/definitions/Project'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+  /project/{projectId}:
+    get:
+      summary: Obtain project
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: projectId
+          in: path
+          description: Project to be obtained.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Project
+      responses:
+        200:
+          description: Project success rate
+          schema:
+            $ref: '#/definitions/Project' #CHANGE THIS
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Modify project
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: projectId
+          in: path
+          description: Project to be obtained.
+          required: true
+          type: string
+          format: string
+        - name: project
+          in: body
+          description: Project to be created.
+          required: true
+          schema:
+            $ref: "#/definitions/Project"
+      tags:
+        - Project
+      responses:
+        200:
+          description: Project modified successfully
+          schema:
+            $ref: '#/definitions/Project'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Delete project
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: projectId
+          in: path
+          description: Project to be obtained.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Project
+      responses:
+        200:
+          description: Project deleted successfully
+          schema:
+            $ref: '#/definitions/Project'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+  /project/{projectId}/{userName}:
+    get:
+      summary: Obtain project
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: projectId
+          in: path
+          description: Project to be obtained.
+          required: true
+          type: string
+          format: string
+        - name: userName
+          in: path
+          description: User to obtain info.
+          required: true
+          type: string
+          format: string
+      tags:
+        - User
+      responses:
+        200:
+          description: Project success rate
+          schema:
+            $ref: '#/definitions/TaskList'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+  /project/{projectId}/task:
+    post:
+      summary: Create task
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: projectId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+        - name: task
+          in: body
+          description: Task to be created.
+          required: true
+          schema:
+            $ref: "#/definitions/Task"
+      tags:
+        - Task
+      responses:
+        200:
+          description: Task created
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+  /project/{projectId}/task/{taskId}:
+    post:
+      summary: Change task status
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: taskId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+        - name: projectId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Task
+      responses:
+        200:
+          description: Modified task
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Modify task
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: taskId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+        - name: projectId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+        - name: task
+          in: body
+          description: Task to be modified.
+          required: true
+          schema:
+            $ref: "#/definitions/Task"
+      tags:
+        - Task
+      responses:
+        200:
+          description: Modified task
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Delete Task
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: projectId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+        - name: taskId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Task
+      responses:
+        200:
+          description: Modified task
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+  /project/{projectId}/task/{taskId}/{userName}:
+    parameters:
+      - name: taskId
+        in: path
+        description: Task to be modified.
+        required: true
+        type: string
+        format: string
+      - name: projectId
+        in: path
+        description: Task to be modified.
+        required: true
+        type: string
+        format: string
+      - name: userName
+        in: path
+        description: Task to be modified.
+        required: true
+        type: string
+        format: string
+    post:
+      summary: Modify task
+      description: |
+        This service returns the meteorological info from a city.
+      tags:
+        - Task
+      responses:
+        200:
+          description: User Assigned
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Delete Task
+      description: |
+        This service returns the meteorological info from a city.
+      parameters:
+        - name: taskId
+          in: path
+          description: Task to be modified.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Task
+      responses:
+        200:
+          description: Modified task
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: This shit died
+          schema:
+            $ref: '#/definitions/Error'
 definitions:
-  HelloResponse:
+  Project:
     type: object
     required:
-    - hello
+      - name
+      - leaderName
+      - initDate
+      - finishDate
+      - tasksAssociated
     properties:
-      hello:
+      id:
+        type: string
+        description: Project id.
+      name:
+        type: string
+        description: Project name.
+      leaderName:
+        type: string
+        description: Project leader name.
+      initDate:
+        type: string
+        format: date
+        description: Initial Date.
+      finishDate:
+        type: string
+        format: date
+        description: Finish date.
+      tasksAssociated:
+        type: array
+        items:
+          $ref: "#/definitions/Task"
+        description: Tasks associated.
+  Task:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      userAssigned:
+        type: string
+      completed:
+        type: boolean
+  TaskList:
+    type: object
+    properties:
+      name:
+        type: array
+        items:
+          $ref: "#/definitions/Task"
+        description: Task List
+  Error:
+    type: object
+    required:
+      - code
+      - msg
+    properties:
+      code:
+        type: string
+      msg:
         type: string
