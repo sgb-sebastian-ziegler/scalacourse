@@ -200,7 +200,25 @@ object Boot extends App with ServiceBoot with ApplicationRoutesConsolidated{
     }
   }
 
-  override def handleGetProjectProjectId(projectId: String)(): Route = super.handleGetProjectProjectId(projectId)()
+  override def handleGetProjectProjectId(projectId: String)(): Route = {
+
+    onSuccess(keyValueStore.read[Project]("project-"+projectId)) { x =>
+      x match {
+        case Some(project) =>
+
+          val filteredTrue = project.tasksAssociated.count(_.completed == true)
+          val filteredFalse = project.tasksAssociated.count(_.completed == true)
+          val filteredCount = filteredTrue / (filteredTrue + filteredFalse)
+
+          complete(OK, filteredCount.toString)
+        case None =>
+          complete(NotFound, Error(
+            code = "404",
+            msg = "Not found"
+          ))
+      }
+    }
+  }
 
   override def handlePutProjectProjectId(projectId: String, project: Project)(): Route = {
 
